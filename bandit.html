@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Multi-Armed Bandit - LearnRL</title>
+    <style>
+        table, td {
+            border: 1px solid #000;
+        }
+
+    </style>
+</head>
+<body>
+<!--
+    <table>
+        <tr>
+            <td>111</td>
+            <td>222</td>
+            <td>333</td>
+        </tr>
+                
+    </table>
+-->
+    
+    <button onclick="pullBandit1()">Pull!</button><br>
+    <span id="bandit1-result"></span><br>
+    <span id="bandit1-mean">0</span>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        
+        window.onload = function() {
+            
+            bandit1 = new Bandit(0.5);
+            
+            
+        }
+        
+        function pullBandit1() {
+            res = bandit1.pull();
+            d3.select("#bandit1-result").text(res);
+            d3.select("#bandit1-mean").text(bandit1.mean);
+        }
+        
+        
+        function Bandit(winRate) {
+            this.winRate = winRate;
+            this.mean = 0; //Current expected return for the bandit
+            this.nPulls = 0; //Number of pulls
+        }
+        
+        Bandit.prototype.pull = function() {
+            result = Math.random() < this.winRate ? 1 : 0;
+            this.nPulls += 1;
+            this.mean += (result - this.mean) / this.nPulls;
+            return result;
+        }    
+    
+    </script>    
+</body>
+</html>

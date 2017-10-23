@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>LearnRL</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    </head>
+    
+    <body>
+        
+        
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="#">LearnRL</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+<!--
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+-->
+<!--
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Chapters
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+-->
+              <li class="nav-item">
+                <a class="nav-link" href="https://github.com/iolucas/learnrl" target="_blank">Github</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+        
+
+    <div class="container">
+        <!-- Content here -->
+
+        
+        
+        <h1><center>LearnRL</center></h1>
+        <p>LearnRL is a collection of interative things to help teaching reinforcement learning.</p>
+        
+        <br>
+        <h2 id="#multi-armed-bandit">Multi-Armed Bandit</h2>
+        
+        <br>
+        
+        <center>
+            <img src="img/bandit.jpg" style="cursor:pointer;height:200px;" onclick="pullBandit1()"><br>
+            <span id="bandit1-result">Click to play!</span><br>
+            Winning likelihood: <span id="bandit1-mean">0</span>
+            
+        </center>
+        
+        
+        
+<!--        <h2 id="#dynamic-programming">Dynamic Programming</h2>-->
+    
+        
+        
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+        
+        
+    <script src="js/bandit.js"></script>
+    <script>
+        
+        window.onload = function() {
+            
+            bandit1 = new Bandit(1);
+            
+            
+        }
+        
+        function pullBandit1() {
+            res = bandit1.pull();
+            resString = res == 1 ? "You win!" : "You lose!";
+            d3.select("#bandit1-result").text(resString);
+            d3.select("#bandit1-mean").text(bandit1.mean);
+        }  
+    
+    </script>  
+    </body>
+</html>
