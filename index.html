@@ -65,11 +65,45 @@
             <span id="bandit1-result">Click to play!</span><br>
             Winning likelihood: <span id="bandit1-mean">0</span>
             
+        </center><br>
+        
+        <p>Suppose you are in a cassino and you have four bandits to play. Since you do not know the chance of winning in each one of them, how do you choose the bandit to play? To discover the chance of winning of each bandit, you have to play with everyone of them a lot of times to collect the data necessary.</p>
+        
+        <br>
+        <center>
+            <table>
+                <tr id="bandits1">
+<!--
+                    <td><img class="bandit-img" src="img/bandit.jpg"></td>
+                    <td>
+                        <img class="bandit-img" src="img/bandit.jpg">
+                    </td>
+                    <td><img src="img/bandit.jpg" style="cursor:pointer;height:200px;" onclick="pullBandit1()"></td>
+                    <td><img src="img/bandit.jpg" style="cursor:pointer;height:200px;" onclick="pullBandit1()"><br></td>
+-->
+                </tr>
+            </table>
         </center>
+        <br>
         
         
+        <p>But if you keep playing everyone of them to collect data, you often will play low win rate bandits. What can you do to maximize your reward, that is, the same time you explore the bandits, you often choose the best one? There is some ways to do it.</p>
         
-<!--        <h2 id="#dynamic-programming">Dynamic Programming</h2>-->
+        <h3>Epsilon Greedy</h3>
+        <p>We choose and value epsilon between 0 and 1 and it will be the probability of exploration (choose an arm randomly). Otherwise we will choose the best arm so far. The problem is that after a lot of time we will keep exploring and we may not need to explore anymore, so we need to reduce epsilon. So we can decay de epsilon value as we play the episodes.</p>
+
+        <p>There is also another methods to decide whether to explore or not, like Optimistic Initial Value, UCB1 and Bayesian/Thompson Sampling.</p>
+        
+        <h2>Playing TicTacToe</h2>
+
+        <p>Here we will tackle the problem of creating a agent to play tictactoe.</p>
+        <p>To create a solution with code we would have a ton of if else statements. Instead we will handle it with some reinforcement learning approachs.</p>
+
+        <table>
+            <td></td>
+
+
+        </table>
     
         
         
@@ -89,17 +123,54 @@
         
         window.onload = function() {
             
-            bandit1 = new Bandit(1);
+            createBandits1();
+            
+            
             
             
         }
         
-        function pullBandit1() {
-            res = bandit1.pull();
-            resString = res == 1 ? "You win!" : "You lose!";
-            d3.select("#bandit1-result").text(resString);
-            d3.select("#bandit1-mean").text(bandit1.mean);
-        }  
+        
+        function createBandits1() {
+            var bandits = [
+                new Bandit(0.5),
+                new Bandit(0.2),
+                new Bandit(0.8),
+                new Bandit(0.1)
+            ]
+            
+            var banditsTd = d3.select("#bandits1").selectAll("td")
+                .data(bandits)
+                .enter()
+                .append("td")
+                .style("cursor", "pointer")
+                .on("click", function(bandit) {
+                    result = bandit.pull();
+                    resultText = result == 1 ? "You win!" : "You lose!";
+                                
+                    d3.select(this).select(".result-text").text(resultText);
+                    d3.select(this).select(".played-times-text").text("Played times: " + bandit.nPulls);
+                    d3.select(this).select(".winrate-text").text("Win rate: " + bandit.mean.toFixed(2));
+
+                });
+                
+            banditsTd.append("img")
+                .attr("src", "img/bandit.jpg")
+                .style("height", "200px");
+            
+            banditsTd.append("div")
+                .classed("result-text", true)
+                .text("Click to play!");
+            
+            banditsTd.append("div")
+                .classed("played-times-text", true);
+            
+            banditsTd.append("div")
+                .classed("winrate-text", true);            
+        }
+        
+        
+        
     
     </script>  
     </body>
